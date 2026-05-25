@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naouma – Natural Beauty for Every Day</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">Nao<span>uma</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#ingredients">Ingredients</a></li>
+      <li><a href="#routine">Routine</a></li>
+      <li><a href="#why">Our Story</a></li>
+      <li><a href="#products" class="nav-cta">Shop Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cart" id="cart-btn" onclick="toggleCart()" aria-label="Shopping Cart">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+
+    <!-- animated petals -->
+    <div class="petal"
+      style="width:18px;height:12px;background:var(--rose);left:10%;animation-duration:9s;animation-delay:0s;"></div>
+    <div class="petal"
+      style="width:12px;height:8px;background:var(--gold);left:25%;animation-duration:13s;animation-delay:2s;"></div>
+    <div class="petal"
+      style="width:22px;height:14px;background:var(--rose-lt);left:60%;animation-duration:11s;animation-delay:1s;">
+    </div>
+    <div class="petal"
+      style="width:10px;height:7px;background:var(--sage);left:80%;animation-duration:14s;animation-delay:4s;"></div>
+    <div class="petal"
+      style="width:16px;height:10px;background:var(--rose);left:45%;animation-duration:10s;animation-delay:6s;"></div>
+
+    <div style="position:relative;z-index:1;">
+      <div class="hero-tag">🌿 Natural Beauty for Every Day</div>
+      <h1>Glow with <em>Confidence</em>,<br>Nourished by Nature</h1>
+      <p class="hero-sub">Discover Naouma — a complete skincare and haircare collection crafted with powerful natural
+        ingredients for radiant, balanced, healthy beauty.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">Explore Collection</a>
+        <a href="#routine" class="btn-outline">Build Your Routine</a>
+      </div>
+      <div class="hero-badges">
+        <div class="badge"><span class="badge-dot"></span> Dermatologically Tested</div>
+        <div class="badge"><span class="badge-dot"></span> 0% Sulfates</div>
+        <div class="badge"><span class="badge-dot"></span> Natural Ingredients</div>
+        <div class="badge"><span class="badge-dot"></span> Cruelty-Free</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BRAND STRIP ── -->
+  <div class="brand-strip">
+    <div class="brand-strip-item">🌹 Rose Extract</div>
+    <div class="brand-strip-item">🌿 Argan Oil</div>
+    <div class="brand-strip-item">💧 Hyaluronic Acid</div>
+    <div class="brand-strip-item">🌱 Tea Tree Oil</div>
+    <div class="brand-strip-item">✨ Zinc PCA</div>
+    <div class="brand-strip-item">🛡️ Niacinamide</div>
+  </div>
+
+  <!-- ── PRODUCTS ── -->
+  <section id="products">
+    <div class="section-head">
+      <div class="section-label">Our Collection</div>
+      <h2 class="section-title">Every Skin. Every Hair.<br>One Brand.</h2>
+      <p class="section-sub">Explore our complete range of skincare and haircare products, each formulated to deliver
+        real, visible results.</p>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterProducts('all', this)">All Products</button>
+      <button class="filter-btn" onclick="filterProducts('skin', this)">Skincare</button>
+      <button class="filter-btn" onclick="filterProducts('hair', this)">Haircare</button>
+      <button class="filter-btn" onclick="filterProducts('body', this)">Body</button>
+    </div>
+
+    <div class="products-grid" id="products-grid">
+
+      <div class="product-card reveal" data-cat="skin">
+        <div class="product-img">
+          <img src="assets/images/moisturizer.jpg" alt="Oil Control Moisturizer" loading="lazy">
+          <span class="product-badge-tag">Best Seller</span>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Skincare</div>
+          <div class="product-name">Oil Control Moisturizer</div>
+          <div class="product-desc">Zinc PCA + Hyaluronic Acid + Niacinamide. Hydrates deeply, balances oil, and gives
+            you a healthy glow.</div>
+          <div class="product-price">150 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">125 ml</span>
+            <button class="product-btn"
+              onclick="addToCart('Oil Control Moisturizer', 150, 'assets/images/moisturizer.jpg')">🛒 Add to
+              Cart</button>
+          </div>
+          <button class="buy-now-btn"
+            onclick="buyNow('Oil Control Moisturizer', 150, 'assets/images/moisturizer.jpg')">⚡ Buy It Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="skin" style="transition-delay:.1s">
+        <div class="product-img">
+          <img src="assets/images/cleanser.jpg" alt="Foaming Facial Cleanser" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Skincare</div>
+          <div class="product-name">Foaming Facial Cleanser</div>
+          <div class="product-desc">Tea Tree Oil + Salicylic Acid + Aloe Vera. Clears blackheads & excess oil with a
+            gentle, non-drying formula.</div>
+          <div class="product-price">180 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">150 ml</span>
+            <button class="product-btn"
+              onclick="addToCart('Foaming Facial Cleanser', 180, 'assets/images/cleanser.jpg')">🛒 Add to Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Foaming Facial Cleanser', 180, 'assets/images/cleanser.jpg')">⚡
+            Buy It Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="skin" style="transition-delay:.12s">
+        <div class="product-img">
+          <img src="assets/images/skincare-set-2-items.jpg" alt="Oil Control Skincare Set (2 Items)" loading="lazy">
+          <span class="product-badge-tag">Special Offer</span>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Skincare</div>
+          <div class="product-name">Oil Control Skincare Set (2 Items)</div>
+          <div class="product-desc">The perfect daily duo for balanced, clear & healthy skin. Includes the Foaming Facial Cleanser and Oil Control Moisturizer.</div>
+          <div class="product-price"><span class="old-price">400 EGP</span>300 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">2-Piece Set</span>
+            <button class="product-btn" onclick="addToCart('Oil Control Skincare Set (2 Items)', 300, 'assets/images/skincare-set-2-items.jpg')">🛒 Add to Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Oil Control Skincare Set (2 Items)', 300, 'assets/images/skincare-set-2-items.jpg')">⚡ Buy It Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="skin" style="transition-delay:.14s">
+        <div class="product-img">
+          <img src="assets/images/skincare-set-3-items.jpg" alt="Oil Control Skincare Set (3 Items)" loading="lazy">
+          <span class="product-badge-tag">Special Offer</span>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Skincare</div>
+          <div class="product-name">Oil Control Skincare Set (3 Items)</div>
+          <div class="product-desc">The complete routine for clear, healthy & shine-free skin. Includes the Foaming Facial Cleanser, Oil Control Moisturizer, and Hair Serum.</div>
+          <div class="product-price"><span class="old-price">600 EGP</span>500 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">3-Piece Set</span>
+            <button class="product-btn" onclick="addToCart('Oil Control Skincare Set (3 Items)', 500, 'assets/images/skincare-set-3-items.jpg')">🛒 Add to Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Oil Control Skincare Set (3 Items)', 500, 'assets/images/skincare-set-3-items.jpg')">⚡ Buy It Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="hair" style="transition-delay:.15s">
+        <div class="product-img">
+          <img src="assets/images/shampoo-conditioner.jpg" alt="Soft Rose Shampoo" loading="lazy">
+          <span class="product-badge-tag">0% Sulfates</span>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Haircare</div>
+          <div class="product-name">Soft Rose Shampoo</div>
+          <div class="product-desc">Rose extract nourishes and softens from the first wash. Sulfate-free formula gentle
+            on your scalp.</div>
+          <div class="product-price">200 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">250 ml</span>
+            <button class="product-btn"
+              onclick="addToCart('Soft Rose Shampoo', 200, 'assets/images/shampoo-conditioner.jpg')">🛒 Add to
+              Cart</button>
+          </div>
+          <button class="buy-now-btn"
+            onclick="buyNow('Soft Rose Shampoo', 200, 'assets/images/shampoo-conditioner.jpg')">⚡ Buy It Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="hair" style="transition-delay:.2s">
+        <div class="product-img">
+          <img src="assets/images/shampoo-conditioner.jpg" alt="Silky Smooth Conditioner" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Haircare</div>
+          <div class="product-name">Silky Smooth Conditioner</div>
+          <div class="product-desc">Pairs perfectly with the Rose Shampoo. Silky, detangling, sulfate-free formula for
+            lustrous hair.</div>
+          <div class="product-price">225 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">250 ml</span>
+            <button class="product-btn"
+              onclick="addToCart('Silky Smooth Conditioner', 225, 'assets/images/shampoo-conditioner.jpg')">🛒 Add to
+              Cart</button>
+          </div>
+          <button class="buy-now-btn"
+            onclick="buyNow('Silky Smooth Conditioner', 225, 'assets/images/shampoo-conditioner.jpg')">⚡ Buy It
+            Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="hair" style="transition-delay:.25s">
+        <div class="product-img">
+          <img src="assets/images/hair-mask.jpg" alt="Hair Mask" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Haircare</div>
+          <div class="product-name">Hair Mask</div>
+          <div class="product-desc">An intensive treatment that deeply repairs and restores damaged hair, leaving it
+            silky, shiny, and full of life.</div>
+          <div class="product-price">300 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">Standard Jar</span>
+            <button class="product-btn" onclick="addToCart('Hair Mask', 300, 'assets/images/hair-mask.jpg')">🛒 Add to
+              Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Hair Mask', 300, 'assets/images/hair-mask.jpg')">⚡ Buy It
+            Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="hair" style="transition-delay:.28s">
+        <div class="product-img">
+          <img src="assets/images/hair-serum.jpg" alt="Hair Serum" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Haircare</div>
+          <div class="product-name">Hair Serum</div>
+          <div class="product-desc">Enriched with Argan Oil & Vitamin E. Deeply nourishes, reduces frizz, and provides a stunning, natural, long-lasting shine.</div>
+          <div class="product-price">200 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">100 ml</span>
+            <button class="product-btn" onclick="addToCart('Hair Serum', 200, 'assets/images/hair-serum.jpg')">🛒 Add to Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Hair Serum', 200, 'assets/images/hair-serum.jpg')">⚡ Buy It Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="hair" style="transition-delay:.3s">
+        <div class="product-img">
+          <img src="assets/images/ultimate-hair-care-collection.jpg" alt="Ultimate Hair Care Collection" loading="lazy">
+          <span class="product-badge-tag">Special Offer</span>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Haircare</div>
+          <div class="product-name">Ultimate Hair Care Collection</div>
+          <div class="product-desc">Our complete premium haircare routine. Includes the Soft Rose Shampoo, Smooth Conditioner, and the nourishing Hair Serum.</div>
+          <div class="product-price"><span class="old-price">650 EGP</span>600 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">3-Piece Set</span>
+            <button class="product-btn" onclick="addToCart('Ultimate Hair Care Collection', 600, 'assets/images/ultimate-hair-care-collection.jpg')">🛒 Add to Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Ultimate Hair Care Collection', 600, 'assets/images/ultimate-hair-care-collection.jpg')">⚡ Buy It Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="body" style="transition-delay:.3s">
+        <div class="product-img">
+          <img src="assets/images/deodorant.jpg" alt="Deodorant Cream" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Body Care</div>
+          <div class="product-name">Deodorant Cream</div>
+          <div class="product-desc">A gentle, long-lasting deodorant cream infused with rose extract and niacinamide for
+            confident, fresh skin.</div>
+          <div class="product-price">160 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">Cream Jar</span>
+            <button class="product-btn" onclick="addToCart('Deodorant Cream', 160, 'assets/images/deodorant.jpg')">🛒
+              Add to Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Deodorant Cream', 160, 'assets/images/deodorant.jpg')">⚡ Buy It
+            Now</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-cat="body" style="transition-delay:.35s">
+        <div class="product-img">
+          <img src="assets/images/Lip Balm.jpeg" alt="Lip Balm" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Body Care</div>
+          <div class="product-name">Lip Balm</div>
+          <div class="product-desc">Delicately scented rose lip balm that keeps your lips soft, hydrated, and
+            beautifully nourished throughout the day.</div>
+          <div class="product-price">100 <span>EGP</span></div>
+          <div class="product-footer">
+            <span class="product-size">Standard Stick</span>
+            <button class="product-btn" onclick="addToCart('Lip Balm', 100, 'assets/images/deodorant.jpg')">🛒 Add to
+              Cart</button>
+          </div>
+          <button class="buy-now-btn" onclick="buyNow('Lip Balm', 100, 'assets/images/Lip Balm.jpeg')">⚡ Buy It
+            Now</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── INGREDIENTS ── -->
+  <section id="ingredients">
+    <div class="section-head center">
+      <div class="section-label">What's Inside</div>
+      <h2 class="section-title">Powered by Nature's Best</h2>
+      <p class="section-sub">Every Naouma formula is built around active, natural ingredients chosen for real, visible
+        results.</p>
+    </div>
+
+    <div class="ingredients-grid">
+      <div class="ingr-card reveal">
+        <span class="ingr-icon">🌹</span>
+        <div class="ingr-name">Rose Extract</div>
+        <div class="ingr-desc">Rich in antioxidants and vitamins, it soothes skin, softens hair, and leaves a delicate,
+          lasting fragrance.</div>
+      </div>
+      <div class="ingr-card reveal" style="transition-delay:.08s">
+        <span class="ingr-icon">💧</span>
+        <div class="ingr-name">Hyaluronic Acid</div>
+        <div class="ingr-desc">Locks in moisture at a deep level and preserves your skin's natural radiance without
+          clogging pores.</div>
+      </div>
+      <div class="ingr-card reveal" style="transition-delay:.16s">
+        <span class="ingr-icon">🌿</span>
+        <div class="ingr-name">Zinc PCA</div>
+        <div class="ingr-desc">Regulates sebum production, reduces shine, and minimizes the appearance of enlarged
+          pores.</div>
+      </div>
+      <div class="ingr-card reveal" style="transition-delay:.24s">
+        <span class="ingr-icon">✨</span>
+        <div class="ingr-name">Niacinamide</div>
+        <div class="ingr-desc">Calms inflammation, evens out skin tone, and visibly reduces pores and blemishes over
+          time.</div>
+      </div>
+      <div class="ingr-card reveal" style="transition-delay:.32s">
+        <span class="ingr-icon">🫒</span>
+        <div class="ingr-name">Argan Oil</div>
+        <div class="ingr-desc">Deeply nourishes and strengthens hair from root to tip, adding incredible softness and
+          mirror-like shine.</div>
+      </div>
+      <div class="ingr-card reveal" style="transition-delay:.4s">
+        <span class="ingr-icon">🌱</span>
+        <div class="ingr-name">Tea Tree Oil</div>
+        <div class="ingr-desc">Natural antibacterial and anti-inflammatory agent that fights acne and purifies skin
+          without over-drying.</div>
+      </div>
+      <div class="ingr-card reveal" style="transition-delay:.48s">
+        <span class="ingr-icon">🧪</span>
+        <div class="ingr-name">Salicylic Acid (BHA)</div>
+        <div class="ingr-desc">Gently exfoliates inside pores to clear blackheads, control oil, and keep skin smooth and
+          clear.</div>
+      </div>
+      <div class="ingr-card reveal" style="transition-delay:.56s">
+        <span class="ingr-icon">🍃</span>
+        <div class="ingr-name">Aloe Vera Extract</div>
+        <div class="ingr-desc">Instantly soothes, cools, and hydrates, making it perfect for sensitive and irritated
+          skin types.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY US ── -->
+  <section id="why">
+    <div class="section-head">
+      <div class="section-label">Why Naouma</div>
+      <h2 class="section-title">Beauty That Works.<br>Every Single Day.</h2>
+      <p class="section-sub">We believe great skincare should be simple, honest, and effective — made with ingredients
+        you can trust.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <span class="why-icon">🔬</span>
+        <div class="why-title">Dermatologically Tested</div>
+        <div class="why-desc">Every product is tested by dermatologists and proven safe for sensitive, oily, and
+          acne-prone skin types.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.1s">
+        <span class="why-icon">🌿</span>
+        <div class="why-title">100% Natural Formulas</div>
+        <div class="why-desc">We use only carefully selected natural and active ingredients. No hidden chemicals, no
+          compromises.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.2s">
+        <span class="why-icon">🚫</span>
+        <div class="why-title">Free from Harsh Chemicals</div>
+        <div class="why-desc">Our haircare is 0% sulfates; our skincare avoids parabens and harmful additives — gentle
+          power, always.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.3s">
+        <span class="why-icon">💎</span>
+        <div class="why-title">Visible Results</div>
+        <div class="why-desc">Real before-and-after results — from clearer skin to smoother, shinier hair — that you can
+          see and feel.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.4s">
+        <span class="why-icon">🫶</span>
+        <div class="why-title">For All Skin & Hair Types</div>
+        <div class="why-desc">Formulated to work across all skin tones and hair types, so every woman can find her
+          perfect Naouma routine.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.5s">
+        <span class="why-icon">📦</span>
+        <div class="why-title">Available Online</div>
+        <div class="why-desc">Order easily from anywhere. Fast delivery, premium packaging, and a brand experience
+          you'll love from the first unbox.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ROUTINE ── -->
+  <section id="routine">
+    <div class="section-head center">
+      <div class="section-label">Daily Routine</div>
+      <h2 class="section-title">Your Perfect Routine,<br>Step by Step</h2>
+      <p class="section-sub">Follow this simple morning ritual for glowing skin and healthy, beautiful hair — every
+        single day.</p>
+    </div>
+
+    <div class="routine-steps">
+      <div class="routine-step reveal">
+        <span class="routine-icon">🫧</span>
+        <div class="routine-title">Cleanse</div>
+        <div class="routine-desc">Start with a foaming cleanse to remove excess oil, impurities, and blackheads without
+          stripping your skin.</div>
+        <div class="routine-product">Foaming Facial Cleanser</div>
+      </div>
+      <div class="routine-step reveal" style="transition-delay:.1s">
+        <span class="routine-icon">💧</span>
+        <div class="routine-title">Moisturize</div>
+        <div class="routine-desc">Apply oil control moisturizer to hydrate, balance sebum, and protect your skin
+          throughout the day.</div>
+        <div class="routine-product">Oil Control Moisturizer</div>
+      </div>
+      <div class="routine-step reveal" style="transition-delay:.2s">
+        <span class="routine-icon">🌹</span>
+        <div class="routine-title">Wash Hair</div>
+        <div class="routine-desc">Use sulfate-free rose shampoo and conditioner for soft, shiny, deeply nourished hair
+          from first use.</div>
+        <div class="routine-product">Rose Shampoo + Conditioner</div>
+      </div>
+      <div class="routine-step reveal" style="transition-delay:.3s">
+        <span class="routine-icon">✨</span>
+        <div class="routine-title">Style & Shine</div>
+        <div class="routine-desc">Finish with a few drops of Hair Serum on damp or dry hair for frizz-free, glossy locks
+          all day.</div>
+        <div class="routine-product">Hair Serum</div>
+      </div>
+      <div class="routine-step reveal" style="transition-delay:.4s">
+        <span class="routine-icon">💋</span>
+        <div class="routine-title">Protect Lips</div>
+        <div class="routine-desc">Swipe on Lip Balm throughout the day to keep your lips soft, hydrated, and beautifully
+          fragrant.</div>
+        <div class="routine-product">Rose Lip Balm</div>
+      </div>
+      <div class="routine-step reveal" style="transition-delay:.5s">
+        <span class="routine-icon">💜</span>
+        <div class="routine-title">Weekly Mask</div>
+        <div class="routine-desc">Apply Hair Mask weekly for a deep repair treatment that brings life and softness back
+          to any hair type.</div>
+        <div class="routine-product">Hair Mask</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="testimonials">
+    <div class="section-head center">
+      <div class="section-label">Real Reviews</div>
+      <h2 class="section-title">Our Customers Love<br>What They See</h2>
+      <p class="section-sub">Thousands of women trust Naouma every day. Here's what they're saying.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">The Oil Control Moisturizer is a game-changer. My skin used to get shiny by midday —
+          now it stays matte and fresh all day. I'm genuinely obsessed.</div>
+        <div class="review-author">
+          <div class="review-avatar">👩</div>
+          <div>
+            <div class="review-name">Nour Khalil</div>
+            <div class="review-location">Cairo, Egypt</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.1s">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">The Rose Shampoo smells incredible and my hair has never felt softer. The sulfate-free
+          formula is so gentle — no more dry scalp or breakage.</div>
+        <div class="review-author">
+          <div class="review-avatar">👩‍🦱</div>
+          <div>
+            <div class="review-name">Rana Hassan</div>
+            <div class="review-location">Alexandria, Egypt</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.2s">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">After one month of using the Foaming Cleanser + Moisturizer routine my breakouts are
+          almost completely gone. The before/after is real — it really works.</div>
+        <div class="review-author">
+          <div class="review-avatar">👩‍🦳</div>
+          <div>
+            <div class="review-name">Salma Youssef</div>
+            <div class="review-location">Dubai, UAE</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.3s">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">The Hair Serum is pure magic. I have frizzy, thick hair and after just one use it was
+          smooth, shiny, and smelled amazing. I'll never go without it.</div>
+        <div class="review-author">
+          <div class="review-avatar">👧</div>
+          <div>
+            <div class="review-name">Mariam Farid</div>
+            <div class="review-location">Riyadh, KSA</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.4s">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">The Lip Balm is the most moisturizing one I've ever used. Light, not sticky, and the
+          rose scent is so subtle and lovely. A permanent bag essential for me.</div>
+        <div class="review-author">
+          <div class="review-avatar">👩‍🦰</div>
+          <div>
+            <div class="review-name">Dina Mostafa</div>
+            <div class="review-location">Beirut, Lebanon</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.5s">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Naouma is the only brand I trust for both my skin and my hair. The packaging is
+          beautiful and the results speak for themselves. Highly recommend to everyone.</div>
+        <div class="review-author">
+          <div class="review-avatar">🧖‍♀️</div>
+          <div>
+            <div class="review-name">Layla Ibrahim</div>
+            <div class="review-location">Kuwait City, Kuwait</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEWSLETTER ── -->
+  <div class="newsletter">
+    <div class="newsletter-box reveal">
+      <h2>Join the Naouma Family 🌹</h2>
+      <p>Subscribe for exclusive offers, skincare tips, new product launches, and early access to seasonal collections.
+      </p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Your email address…" id="email-input">
+        <button onclick="subscribe()">Subscribe</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Naouma 🌹</div>
+        <p class="footer-desc">Natural beauty products crafted with care for every skin type and hair type. Hydrate.
+          Balance. Glow. Nourish. Smooth. Shine.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn">📘</a>
+          <a href="#" class="social-btn">📸</a>
+          <a href="#" class="social-btn">🎵</a>
+          <a href="#" class="social-btn">🐦</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#">Oil Control Moisturizer</a></li>
+          <li><a href="#">Foaming Cleanser</a></li>
+          <li><a href="#">Rose Shampoo</a></li>
+          <li><a href="#">Silky Conditioner</a></li>
+          <li><a href="#">Hair Mask</a></li>
+          <li><a href="#">Deodorant Cream</a></li>
+          <li><a href="#">Lip Balm</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Ingredients</a></li>
+          <li><a href="#">Skin Routine Guide</a></li>
+          <li><a href="#">Hair Routine Guide</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Track Your Order</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Naouma. All rights reserved. Made with 🌹 for natural beauty.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── CART OVERLAY ── -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>🛒 Your Cart</h3>
+      <button class="cart-close" onclick="toggleCart()">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty" id="cart-empty">
+        <span class="cart-empty-icon">🛍️</span>
+        Your cart is empty.<br>Start adding your favorite Naouma products!
+      </div>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total-price">0 EGP</span>
+      </div>
+      <button class="cart-checkout-btn" onclick="checkout()">🌹 Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- ── TOAST ── -->
+  <div class="toast" id="toast">🛒 Added to cart!</div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+
+</html>
