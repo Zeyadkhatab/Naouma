@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,9 +8,6 @@ const PORT = process.env.PORT || 3000;
 // ── Middleware ──
 app.use(cors());
 app.use(express.json());
-
-// Serve the frontend files from the parent directory
-app.use(express.static(path.join(__dirname, '..')));
 
 // ── Email transporter (Gmail) ──
 // Using a Gmail App Password for authentication.
@@ -149,10 +145,21 @@ Order placed on ${new Date().toLocaleString('en-EG', { timeZone: 'Africa/Cairo' 
   }
 });
 
-// ── Start server ──
-app.listen(PORT, () => {
-  console.log(`\n🌹 Naouma Order Server running at http://localhost:${PORT}`);
-  console.log(`📧 Orders will be sent to: ea137333@gmail.com`);
-  console.log(`\n⚠️  Make sure to set GMAIL_APP_PASSWORD environment variable!`);
-  console.log(`   Run: set GMAIL_APP_PASSWORD=your_app_password_here\n`);
-});
+// ── Export or Start server ──
+// If not running on Vercel, listen on the port for local development
+if (!process.env.VERCEL) {
+  // We need to serve static files locally for testing, 
+  // since vercel.json rewrites handle it in production.
+  const path = require('path');
+  app.use(express.static(path.join(__dirname, '..')));
+  
+  app.listen(PORT, () => {
+    console.log(`\n🌹 Naouma Order Server running at http://localhost:${PORT}`);
+    console.log(`📧 Orders will be sent to: ea137333@gmail.com`);
+    console.log(`\n⚠️  Make sure to set GMAIL_APP_PASSWORD environment variable!`);
+    console.log(`   Run: set GMAIL_APP_PASSWORD=your_app_password_here\n`);
+  });
+}
+
+// Export the app for Vercel
+module.exports = app;

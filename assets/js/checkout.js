@@ -92,7 +92,7 @@ function setupFormSubmission(order) {
     };
 
     // Send to our Node.js backend
-    fetch('http://localhost:3000/api/order', {
+    fetch('/api/order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
