@@ -23,6 +23,37 @@ body {
   overflow-x: hidden;
 } 
 
+html[dir="rtl"] body {
+  font-family: 'Noto Sans Arabic', 'Jost', sans-serif;
+}
+
+html[dir="rtl"] .nav-logo {
+  font-family: 'Playfair Display', serif; /* Keep English font for logo */
+}
+
+/* ── LANG TOGGLE ── */
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--rose);
+  border-radius: 99px;
+  padding: 0.35rem 0.8rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--rose-dk);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+}
+.lang-toggle:hover {
+  background: var(--rose-lt);
+}
+html[dir="rtl"] .lang-toggle {
+  font-family: 'Noto Sans Arabic', 'Jost', sans-serif;
+}
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--rose-lt); }
@@ -357,6 +388,10 @@ section { padding: 6rem 5vw; }
   margin-right: 0.6rem;
   font-family: 'Jost', sans-serif;
   font-weight: 400;
+}
+html[dir="rtl"] .old-price {
+  margin-right: 0;
+  margin-left: 0.6rem;
 }
 .product-footer {
   display: flex; align-items: center; justify-content: space-between;
@@ -806,6 +841,12 @@ footer {
   transition: transform .35s cubic-bezier(.4,0,.2,1);
 }
 .cart-sidebar.open { transform: translateX(0); }
+html[dir="rtl"] .cart-sidebar {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+html[dir="rtl"] .cart-sidebar.open { transform: translateX(0); }
 
 .cart-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -873,6 +914,10 @@ footer {
   text-decoration: underline;
   transition: color .2s;
 }
+html[dir="rtl"] .cart-item-remove {
+  margin-left: 0;
+  margin-right: auto;
+}
 .cart-item-remove:hover { color: #c0392b; }
 
 .cart-footer {
@@ -930,3 +975,9 @@ footer {
   transition: transform .4s cubic-bezier(.34,1.56,.64,1);
 }
 .toast.show { transform: translateX(0); }
+html[dir="rtl"] .toast {
+  right: auto;
+  left: 2rem;
+  transform: translateX(-120%);
+}
+html[dir="rtl"] .toast.show { transform: translateX(0); }

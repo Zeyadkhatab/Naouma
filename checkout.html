@@ -7,7 +7,7 @@
   <title>Checkout – Naouma</title>
   <meta name="description" content="Complete your Naouma order. Enter your shipping details and confirm your purchase of premium natural beauty products.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/checkout.css">
 </head>
 
@@ -16,50 +16,56 @@
   <!-- ── TOP BAR ── -->
   <div class="checkout-topbar">
     <a href="index.html" class="checkout-logo">Nao<span>uma</span></a>
-    <a href="index.html" class="checkout-back">← Back to Store</a>
+    <div class="checkout-topbar-right" style="display: flex; align-items: center; gap: 1rem;">
+      <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()" aria-label="Toggle Language" style="background: none; border: 1px solid var(--rose); border-radius: 99px; padding: 0.3rem 0.8rem; font-family: 'Jost', sans-serif; font-size: 0.85rem; color: var(--rose-dk); cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.2s, color 0.2s;">
+        <span class="lang-toggle-icon">🌐</span>
+        <span class="lang-toggle-text">عربي</span>
+      </button>
+      <a href="index.html" class="checkout-back" data-i18n="checkout_back">← Back to Store</a>
+    </div>
   </div>
 
   <!-- ── CHECKOUT CONTENT ── -->
   <div class="checkout-container">
 
-    <h1 class="checkout-title">🌹 Complete Your <em>Order</em></h1>
+    <h1 class="checkout-title" data-i18n="checkout_title">🌹 Complete Your <em>Order</em></h1>
 
     <!-- ── LEFT: FORM ── -->
     <form class="checkout-form-section" id="checkout-form">
 
       <div class="form-section-title">
-        <span class="icon">👤</span> Your Information
+        <span class="icon">👤</span> <span data-i18n="checkout_your_info">Your Information</span>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" name="name" placeholder="e.g. Sara Ahmed" required autocomplete="name">
+          <label for="full-name" data-i18n="checkout_full_name">Full Name</label>
+          <input type="text" id="full-name" name="name" data-i18n-placeholder="checkout_full_name_placeholder" placeholder="e.g. Sara Ahmed" required autocomplete="name">
         </div>
         <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          <label for="email" data-i18n="checkout_email">Email Address</label>
+          <input type="email" id="email" name="email" data-i18n-placeholder="checkout_email_placeholder" placeholder="you@example.com" required autocomplete="email">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="e.g. 01012345678" required autocomplete="tel">
+          <label for="phone" data-i18n="checkout_phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" data-i18n-placeholder="checkout_phone_placeholder" placeholder="e.g. 01012345678" required autocomplete="tel">
         </div>
       </div>
 
       <hr class="form-divider">
 
       <div class="form-section-title">
-        <span class="icon">📍</span> Shipping Address
+        <span class="icon">📍</span> <span data-i18n="checkout_shipping">Shipping Address</span>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="governorate">Governorate</label>
+          <label for="governorate" data-i18n="checkout_governorate">Governorate</label>
           <select id="governorate" name="governorate" required>
-            <option value="" disabled selected>Select Governorate</option>
+            <option value="" disabled selected data-i18n="checkout_gov_placeholder">Select Governorate</option>
             <option value="Cairo">Cairo</option>
             <option value="Giza">Giza</option>
             <option value="Alexandria">Alexandria</option>
@@ -90,25 +96,25 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="city">City</label>
-          <input type="text" id="city" name="city" placeholder="e.g. Nasr City" required autocomplete="address-level2">
+          <label for="city" data-i18n="checkout_city">City</label>
+          <input type="text" id="city" name="city" data-i18n-placeholder="checkout_city_placeholder" placeholder="e.g. Nasr City" required autocomplete="address-level2">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group full">
-          <label for="address">Full Address</label>
-          <textarea id="address" name="address" placeholder="Street name, building number, floor, apartment..." required autocomplete="street-address"></textarea>
+          <label for="address" data-i18n="checkout_address">Full Address</label>
+          <textarea id="address" name="address" data-i18n-placeholder="checkout_address_placeholder" placeholder="Street name, building number, floor, apartment..." required autocomplete="street-address"></textarea>
         </div>
       </div>
 
       <button type="submit" class="pay-now-btn" id="pay-btn">
-        <span class="btn-text">🌹 Pay Now</span>
+        <span class="btn-text" data-i18n="checkout_pay">🌹 Pay Now</span>
         <span class="spinner"></span>
-        <span class="loading-text">Processing...</span>
+        <span class="loading-text" data-i18n="checkout_processing">Processing...</span>
       </button>
 
-      <div class="secure-note">
+      <div class="secure-note" data-i18n="checkout_secure">
         🔒 Your information is secure and will only be used to process your order.
       </div>
 
@@ -117,7 +123,7 @@
     <!-- ── RIGHT: ORDER SUMMARY ── -->
     <div class="order-summary">
       <div class="order-summary-title">
-        <span>🛒</span> Order Summary
+        <span>🛒</span> <span data-i18n="checkout_order_summary">Order Summary</span>
       </div>
 
       <div id="order-items">
@@ -127,21 +133,21 @@
       <hr class="order-divider">
 
       <div class="order-row">
-        <span>Subtotal</span>
+        <span data-i18n="checkout_subtotal">Subtotal</span>
         <span id="subtotal-price">0 EGP</span>
       </div>
       <div class="order-row">
-        <span>Shipping</span>
+        <span data-i18n="checkout_shipping_label">Shipping</span>
         <span id="shipping-price" style="font-weight: 500; color: var(--mid);">—</span>
       </div>
       <div class="shipping-zone-row">
-        <span id="shipping-zone-name" class="shipping-zone-label">Select a governorate to see shipping</span>
+        <span id="shipping-zone-name" class="shipping-zone-label" data-i18n="checkout_shipping_select">Select a governorate to see shipping</span>
       </div>
 
       <hr class="order-divider">
 
       <div class="order-total">
-        <span>Total</span>
+        <span data-i18n="checkout_total">Total</span>
         <span id="total-price">0 EGP</span>
       </div>
     </div>
@@ -152,12 +158,13 @@
   <div class="success-overlay" id="success-overlay">
     <div class="success-card">
       <span class="success-icon">✅</span>
-      <h2>Order Placed Successfully!</h2>
-      <p>Thank you for choosing Naouma! 🌹<br>We've received your order and will contact you shortly to confirm delivery details.</p>
-      <a href="index.html" class="success-btn">🛍️ Continue Shopping</a>
+      <h2 data-i18n="checkout_success_title">Order Placed Successfully!</h2>
+      <p data-i18n="checkout_success_msg">Thank you for choosing Naouma! 🌹<br>We've received your order and will contact you shortly to confirm delivery details.</p>
+      <a href="index.html" class="success-btn" data-i18n="checkout_continue">🛍️ Continue Shopping</a>
     </div>
   </div>
 
+  <script src="assets/js/translations.js"></script>
   <script src="assets/js/checkout.js"></script>
 </body>
 

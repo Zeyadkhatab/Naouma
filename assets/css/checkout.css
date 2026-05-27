@@ -24,6 +24,12 @@ body {
   color: var(--dark);
   min-height: 100vh;
 }
+html[dir="rtl"] body {
+  font-family: 'Noto Sans Arabic', 'Jost', sans-serif;
+}
+html[dir="rtl"] .checkout-logo {
+  font-family: 'Playfair Display', serif;
+}
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
@@ -171,6 +177,11 @@ body {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
+}
+html[dir="rtl"] .form-group select {
+  background-position: left 1rem center;
+  padding-right: 1.1rem;
+  padding-left: 2.5rem;
 }
 
 .form-divider {

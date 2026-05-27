@@ -43,7 +43,7 @@ function addToCart(name, price, img) {
   renderCart();
   // Toast
   const toast = document.getElementById('toast');
-  toast.textContent = '🛒 ' + name + ' added to cart!';
+  toast.textContent = '🛒 ' + name + ' ' + (typeof t === "function" ? t("cart_added") : "added to cart!");
   toast.classList.add('show');
   setTimeout(function() { toast.classList.remove('show'); }, 2500);
   // Badge bump
@@ -86,7 +86,8 @@ function renderCart() {
 
   if (cart.length === 0) {
     footerEl.style.display = 'none';
-    itemsEl.innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">🛍️</span>Your cart is empty.<br>Start adding your favorite Naouma products!</div>';
+    var emptyText = typeof t === "function" ? t("cart_empty") : "Your cart is empty.<br>Start adding your favorite Naouma products!";
+    itemsEl.innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">🛍️</span>' + emptyText + '</div>';
     return;
   }
 
@@ -106,7 +107,8 @@ function renderCart() {
     html += '<button class="qty-btn" onclick="changeQty(\'' + escapedName + '\', -1)">&minus;</button>';
     html += '<span class="cart-item-qty">' + item.qty + '</span>';
     html += '<button class="qty-btn" onclick="changeQty(\'' + escapedName + '\', 1)">+</button>';
-    html += '<button class="cart-item-remove" onclick="removeFromCart(\'' + escapedName + '\')">Remove</button>';
+    var removeText = typeof t === "function" ? t("cart_remove") : "Remove";
+    html += '<button class="cart-item-remove" onclick="removeFromCart(\'' + escapedName + '\')">' + removeText + '</button>';
     html += '</div></div></div>';
   }
   itemsEl.innerHTML = html;
@@ -134,7 +136,7 @@ function subscribe() {
     return;
   }
   var toast = document.getElementById('toast');
-  toast.textContent = '🌹 You\'re subscribed! Welcome to Naouma.';
+  toast.textContent = typeof t === "function" ? t("toast_subscribe") : "🌹 You're subscribed! Welcome to Naouma.";
   toast.classList.add('show');
   document.getElementById('email-input').value = '';
   setTimeout(function() { toast.classList.remove('show'); }, 3500);

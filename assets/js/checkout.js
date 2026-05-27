@@ -77,12 +77,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function showEmptyState() {
   var container = document.querySelector('.checkout-container');
+  var tEmptyTitle = typeof t === "function" ? t("checkout_empty_title") : "Your order is empty";
+  var tEmptyMsg = typeof t === "function" ? t("checkout_empty_msg") : "Looks like you haven't selected any products yet. Head back to our collection and find something you love!";
+  var tEmptyBtn = typeof t === "function" ? t("checkout_empty_btn") : "🌹 Browse Products";
   container.innerHTML =
     '<div class="checkout-empty">' +
       '<span class="empty-icon">🛍️</span>' +
-      '<h2>Your order is empty</h2>' +
-      '<p>Looks like you haven\'t selected any products yet. Head back to our collection and find something you love!</p>' +
-      '<a href="index.html" class="success-btn">🌹 Browse Products</a>' +
+      '<h2>' + tEmptyTitle + '</h2>' +
+      '<p>' + tEmptyMsg + '</p>' +
+      '<a href="index.html" class="success-btn">' + tEmptyBtn + '</a>' +
     '</div>';
 }
 
@@ -100,7 +103,8 @@ function renderOrderSummary(order) {
     html += '<div class="order-item-img"><img src="' + item.img + '" alt="' + item.name + '"></div>';
     html += '<div class="order-item-info">';
     html += '<div class="order-item-name">' + item.name + '</div>';
-    html += '<div class="order-item-qty">Qty: ' + item.qty + '</div>';
+    var tQty = typeof t === "function" ? t("checkout_qty") : "Qty";
+    html += '<div class="order-item-qty">' + tQty + ': ' + item.qty + '</div>';
     html += '</div>';
     html += '<div class="order-item-price">' + lineTotal + ' EGP</div>';
     html += '</div>';
@@ -225,7 +229,8 @@ function setupFormSubmission(order) {
     })
     .catch(function(error) {
       console.error('Order error:', error);
-      alert('⚠️ Failed to place order: ' + error.message + '\nPlease try again.');
+      var tFail = typeof t === "function" ? t("checkout_order_fail") : "⚠️ Failed to place order: ";
+      alert(tFail + error.message + '\nPlease try again.');
     })
     .finally(function() {
       btn.classList.remove('loading');
