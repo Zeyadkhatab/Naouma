@@ -895,6 +895,15 @@ footer {
 }
 .cart-checkout-btn:hover { background: var(--rose-dk); }
 
+.cart-shipping-note {
+  text-align: center;
+  font-size: .78rem;
+  color: var(--mid);
+  margin-bottom: .8rem;
+  font-style: italic;
+  opacity: .85;
+}
+
 /* ── HAMBURGER ── */
 .hamburger {
   display: none; background: none; border: none;

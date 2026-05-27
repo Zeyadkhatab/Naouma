@@ -24,12 +24,17 @@ const transporter = nodemailer.createTransport({
 // ── Order endpoint ──
 app.post('/api/order', async (req, res) => {
   try {
-    const { name, email, phone, governorate, city, address, items, total } = req.body;
+    const { name, email, phone, governorate, city, address, items, subtotal, shipping, shippingZone, total } = req.body;
 
     // Validate required fields
-    if (!name || !email || !phone || !governorate || !city || !address || !items || !total) {
+    if (!name || !email || !phone || !governorate || !city || !address || !items || total === undefined) {
       return res.status(400).json({ success: false, message: 'All fields are required.' });
     }
+
+    // Use provided values or calculate them
+    const orderSubtotal = subtotal || items.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const orderShipping = shipping || 0;
+    const orderTotal = total || (orderSubtotal + orderShipping);
 
     // Build order items table
     let itemsHtml = '';
@@ -92,10 +97,28 @@ app.post('/api/order', async (req, res) => {
         </table>
       </div>
       
-      <!-- Total -->
+      <!-- Pricing Breakdown -->
+      <div style="padding:20px 30px; background:#fff;">
+        <table style="width:100%; font-size:14px; color:#555; border-collapse:collapse;">
+          <tr>
+            <td style="padding:8px 0; font-weight:600;">Subtotal:</td>
+            <td style="padding:8px 0; text-align:right;">${orderSubtotal} EGP</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; font-weight:600;">🚚 Shipping (${shippingZone || 'N/A'}):</td>
+            <td style="padding:8px 0; text-align:right; color:#8b5e5e; font-weight:600;">${orderShipping} EGP</td>
+          </tr>
+          <tr style="border-top:2px solid #e8d5d5;">
+            <td style="padding:12px 0; font-weight:700; font-size:16px; color:#8b5e5e;">Total:</td>
+            <td style="padding:12px 0; text-align:right; font-weight:700; font-size:16px; color:#8b5e5e;">${orderTotal} EGP</td>
+          </tr>
+        </table>
+      </div>
+      
+      <!-- Footer -->
       <div style="padding:20px 30px; background: linear-gradient(135deg, #8b5e5e, #c9a0a0); border-radius:0 0 12px 12px; text-align:center;">
-        <p style="color:#f5e6e6; margin:0; font-size:14px;">Total Amount</p>
-        <p style="color:#fff; margin:5px 0 0; font-size:32px; font-weight:700;">${total} EGP</p>
+        <p style="color:#f5e6e6; margin:0; font-size:14px;">Total Amount (incl. shipping)</p>
+        <p style="color:#fff; margin:5px 0 0; font-size:32px; font-weight:700;">${orderTotal} EGP</p>
         <p style="color:#f5e6e6; margin:8px 0 0; font-size:12px;">Order placed on ${new Date().toLocaleString('en-EG', { timeZone: 'Africa/Cairo' })}</p>
       </div>
       
@@ -119,7 +142,10 @@ Address: ${address}
 📦 ORDER ITEMS
 ─────────────────────────────────
 ${itemsText}
-💰 TOTAL: ${total} EGP
+💰 SUBTOTAL: ${orderSubtotal} EGP
+🚚 SHIPPING (${shippingZone || 'N/A'}): ${orderShipping} EGP
+═══════════════════════════════════
+💰 TOTAL: ${orderTotal} EGP
 ═══════════════════════════════════
 Order placed on ${new Date().toLocaleString('en-EG', { timeZone: 'Africa/Cairo' })}
 `;
@@ -128,7 +154,7 @@ Order placed on ${new Date().toLocaleString('en-EG', { timeZone: 'Africa/Cairo' 
     const mailOptions = {
       from: `"Naouma Orders 🌹" <ea137333@gmail.com>`,
       to: 'ea137333@gmail.com',
-      subject: `🌹 New Order from ${name} — ${total} EGP`,
+      subject: `🌹 New Order from ${name} — ${orderTotal} EGP (Shipping: ${orderShipping} EGP)`,
       text: textEmail,
       html: htmlEmail,
       replyTo: email  // So you can reply directly to the customer
@@ -136,7 +162,7 @@ Order placed on ${new Date().toLocaleString('en-EG', { timeZone: 'Africa/Cairo' 
 
     await transporter.sendMail(mailOptions);
 
-    console.log(`✅ Order email sent for ${name} — ${total} EGP`);
+    console.log(`✅ Order email sent for ${name} — ${orderTotal} EGP (Subtotal: ${orderSubtotal}, Shipping: ${orderShipping})`);
     res.json({ success: true, message: 'Order placed successfully!' });
 
   } catch (error) {

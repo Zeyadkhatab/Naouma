@@ -1,5 +1,67 @@
 // ===== Checkout Page Logic =====
 
+// ── Turbo Shipping Rates (from Alexandria & Qalyubia) ──
+// Based on Turbo delivery pricing table — max 2kg per shipment
+var SHIPPING_ZONES = {
+  // القاهرة والجيزة — Cairo & Giza: 90 EGP
+  'Cairo':       { fee: 90, zone: 'Cairo & Giza' },
+  'Giza':        { fee: 90, zone: 'Cairo & Giza' },
+
+  // أطراف القاهرة والجيزة — Cairo & Giza outskirts: 112 EGP
+  // (6th of October, 1st/3rd/5th Settlement, Hawamdeya, Badrashein,
+  //  Ayat, Saff, Kerdasa, Ossim, Abu Nomros, Manashi, Rehab, Shorouk,
+  //  Madinaty, Obour, Sheikh Zayed, Madinat El Salam, Badr)
+  // These are sub-areas, but governorate-level is Cairo/Giza already matched above.
+  // We treat the whole governorate at the base rate; city-level distinction can be added later.
+
+  // الإسكندرية والقليوبية — Alexandria & Qalyubia: 90 EGP
+  'Alexandria':  { fee: 90, zone: 'Alexandria & Qalyubia' },
+  'Qaliubiya':   { fee: 90, zone: 'Alexandria & Qalyubia' },
+
+  // دلتا وبحري — Delta & Bahary: 112 EGP
+  'Dakahlia':        { fee: 112, zone: 'Delta & Bahary' },
+  'Beheira':         { fee: 112, zone: 'Delta & Bahary' },
+  'Gharbia':         { fee: 112, zone: 'Delta & Bahary' },
+  'Menofia':         { fee: 112, zone: 'Delta & Bahary' },
+  'Sharkia':         { fee: 112, zone: 'Delta & Bahary' },
+  'Kafr el-Sheikh':  { fee: 112, zone: 'Delta & Bahary' },
+  'Damietta':        { fee: 112, zone: 'Delta & Bahary' },
+
+  // مدن القناة — Canal Cities: 118 EGP
+  'Suez':        { fee: 118, zone: 'Canal Cities' },
+  'Ismailia':    { fee: 118, zone: 'Canal Cities' },
+  'Port Said':   { fee: 118, zone: 'Canal Cities' },
+
+  // شمال الصعيد — North Upper Egypt: 146 EGP
+  'Fayoum':      { fee: 146, zone: 'North Upper Egypt' },
+  'Beni Suef':   { fee: 146, zone: 'North Upper Egypt' },
+  'Minya':       { fee: 146, zone: 'North Upper Egypt' },
+
+  // جنوب الصعيد — South Upper Egypt: 157 EGP
+  'Assiut':      { fee: 157, zone: 'South Upper Egypt' },
+  'Sohag':       { fee: 157, zone: 'South Upper Egypt' },
+  'Qena':        { fee: 157, zone: 'South Upper Egypt' },
+  'Luxor':       { fee: 157, zone: 'South Upper Egypt' },
+  'Aswan':       { fee: 157, zone: 'South Upper Egypt' },
+
+  // محافظات حدودية — Border Governorates: 224 EGP
+  'Red Sea':       { fee: 224, zone: 'Border Governorates' },
+  'Matrouh':       { fee: 224, zone: 'Border Governorates' },
+  'New Valley':    { fee: 224, zone: 'Border Governorates' },
+  'North Sinai':   { fee: 224, zone: 'Border Governorates' },
+  'South Sinai':   { fee: 224, zone: 'Border Governorates' }
+};
+
+function getShippingFee(governorate) {
+  var info = SHIPPING_ZONES[governorate];
+  return info ? info.fee : 0;
+}
+
+function getShippingZone(governorate) {
+  var info = SHIPPING_ZONES[governorate];
+  return info ? info.zone : '';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   var order = JSON.parse(localStorage.getItem('naouma_order') || '[]');
 
@@ -9,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   renderOrderSummary(order);
+  setupShippingListener(order);
   setupFormSubmission(order);
 });
 
@@ -25,13 +88,13 @@ function showEmptyState() {
 
 function renderOrderSummary(order) {
   var itemsContainer = document.getElementById('order-items');
-  var totalPrice = 0;
+  var subtotal = 0;
 
   var html = '';
   for (var i = 0; i < order.length; i++) {
     var item = order[i];
     var lineTotal = item.price * item.qty;
-    totalPrice += lineTotal;
+    subtotal += lineTotal;
 
     html += '<div class="order-item">';
     html += '<div class="order-item-img"><img src="' + item.img + '" alt="' + item.name + '"></div>';
@@ -44,8 +107,48 @@ function renderOrderSummary(order) {
   }
 
   itemsContainer.innerHTML = html;
-  document.getElementById('subtotal-price').textContent = totalPrice + ' EGP';
-  document.getElementById('total-price').textContent = totalPrice + ' EGP';
+  document.getElementById('subtotal-price').textContent = subtotal + ' EGP';
+
+  // Initially show shipping as "Select governorate"
+  updateShippingDisplay(0, false);
+}
+
+function updateShippingDisplay(shippingFee, governorateSelected) {
+  var shippingEl = document.getElementById('shipping-price');
+  var shippingZoneEl = document.getElementById('shipping-zone-name');
+  var subtotalText = document.getElementById('subtotal-price').textContent;
+  var subtotal = parseInt(subtotalText);
+
+  if (!governorateSelected) {
+    shippingEl.textContent = '—';
+    shippingEl.style.color = 'var(--mid)';
+    shippingEl.style.fontWeight = '500';
+    if (shippingZoneEl) shippingZoneEl.textContent = 'Select a governorate to see shipping';
+    document.getElementById('total-price').textContent = subtotal + ' EGP';
+  } else {
+    shippingEl.textContent = shippingFee + ' EGP';
+    shippingEl.style.color = 'var(--rose-dk)';
+    shippingEl.style.fontWeight = '700';
+    document.getElementById('total-price').textContent = (subtotal + shippingFee) + ' EGP';
+  }
+}
+
+function setupShippingListener(order) {
+  var govSelect = document.getElementById('governorate');
+
+  govSelect.addEventListener('change', function() {
+    var gov = govSelect.value;
+    var fee = getShippingFee(gov);
+    var zone = getShippingZone(gov);
+
+    // Update zone display
+    var shippingZoneEl = document.getElementById('shipping-zone-name');
+    if (shippingZoneEl) {
+      shippingZoneEl.textContent = zone ? '📍 ' + zone + ' zone' : '';
+    }
+
+    updateShippingDisplay(fee, true);
+  });
 }
 
 function setupFormSubmission(order) {
@@ -66,18 +169,23 @@ function setupFormSubmission(order) {
     var city = document.getElementById('city').value.trim();
     var address = document.getElementById('address').value.trim();
 
-    // Calculate total
-    var totalPrice = 0;
+    // Calculate subtotal
+    var subtotal = 0;
     var items = [];
     for (var i = 0; i < order.length; i++) {
       var lineTotal = order[i].price * order[i].qty;
-      totalPrice += lineTotal;
+      subtotal += lineTotal;
       items.push({
         name: order[i].name,
         price: order[i].price,
         qty: order[i].qty
       });
     }
+
+    // Get shipping fee
+    var shippingFee = getShippingFee(governorate);
+    var shippingZone = getShippingZone(governorate);
+    var total = subtotal + shippingFee;
 
     // Build request payload
     var payload = {
@@ -88,7 +196,10 @@ function setupFormSubmission(order) {
       city: city,
       address: address,
       items: items,
-      total: totalPrice
+      subtotal: subtotal,
+      shipping: shippingFee,
+      shippingZone: shippingZone,
+      total: total
     };
 
     // Send to our Node.js backend

@@ -258,6 +258,18 @@ body {
   color: var(--mid);
 }
 
+.shipping-zone-row {
+  padding: .15rem 0 .4rem;
+}
+
+.shipping-zone-label {
+  font-size: .75rem;
+  color: var(--mid);
+  opacity: .8;
+  font-style: italic;
+  transition: all .3s ease;
+}
+
 .order-total {
   display: flex;
   justify-content: space-between;
